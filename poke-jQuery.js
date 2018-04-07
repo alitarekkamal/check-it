@@ -28,33 +28,33 @@ $(document).ready(function(){
           {top:"510px",},2000);
 //-----------------------------------------------------------------------------
 
-    $(".1one").click(function(){
-        var xhttp = new XMLHttpRequest();
-        xhttp.onreadystatechange = function(data) {
-          if (this.readyState == 4 && this.status == 200) {
-            var request = new XMLHttpRequest();
-              request.open('GET', "https://pokeapi.co/api/v2/pokemon/1/", true);
-              request.responseType ='JSON';
-              request.send();
+  $(".1one").click(function(){
+
+        var pokeURL = "https://pokeapi.co/api/v2/pokemon/1/";
+
+        $.getJSON(pokeURL, function(data){
+            //console.log(data);
+            //console.log(JSON.stringify(data, null, "  "));
+
+    /*********** New Stuff ****************************/
+            var pokeID = data.national_id;
+            var pokeName = data.name;
+            var pokeType1 = data.types[0].name;
+            if (data.types.length == 2) {
+                var pokeType2 = data.types[1].name;
+            }
+            else var pokeType2 = null;
+            $(".result1").append(pokeName);
+            console.log("Number: ", pokeID);
+            console.log("Name: ", pokeName);
+            console.log("Type 1: ", pokeType1);
+            console.log("Type 2: ", pokeType2);
+    /*********** New Stuff ****************************/
+        });
+  });
 
 
-              $(".result1").html(XMLHttpRequest.responseText.data.name);
-          }
-        };
-        xhttp.open("GET", "https://pokeapi.co/api/v2/pokemon/1/", true);
-        xhttp.send();
 
 
-
-    /*  var request = new XMLHttpRequest();
-      request.open('GET', "bulb.json", true);
-      request.responseType ='JSON';
-      request.send();
-
-      $(".result1").html(request);
-      $(".result1").html(XMLHttpRequest.responseText.name);
-*/
-
-      });
 
 });
